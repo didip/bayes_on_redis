@@ -67,7 +67,9 @@ class BayesOnRedis
 
   # Incoming text is always downcased
   def count_occurance(text)
-    text.downcase.split.inject(Hash.new(0)) do |container, word|
+    raise "input must be instance of String" unless text.is_a?(String)
+
+    text.to_s.downcase.split.inject(Hash.new(0)) do |container, word|
       container[word] += 1; container
     end
   end

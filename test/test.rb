@@ -7,9 +7,9 @@ bor.flushdb
 # Classification tests
 
 bor.train "good", "sweet awesome kick-ass cool pretty smart"
-bor.train "bad", "sucks lame boo death bankrupt loser poor"
+bor.train "bad", "sucks lame boo death bankrupt loser sad"
 
-text = "even though you are sweet and awesome ninja, you still sucks"
+text = "even though you are sweet and awesome ninja, you still sucks."
 expected = 'good'
 puts bor.classify(text)
 puts "Expected: #{expected} --- Result: #{bor.classify_for_human(text)}"
