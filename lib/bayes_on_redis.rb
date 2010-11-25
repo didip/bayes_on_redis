@@ -22,6 +22,7 @@ class BayesOnRedis
       @redis.hincrby(redis_category_key(category), word, count)
     end
   end
+  alias_method :learn, :train
 
   def untrain(category, text)
     category = category.downcase
@@ -36,6 +37,7 @@ class BayesOnRedis
       @redis.hset(redis_category_key(category), word, new_count)
     end
   end
+  alias_method :unlearn, :untrain
 
   def classify(text)
     scores = {}
