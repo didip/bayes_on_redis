@@ -6,8 +6,8 @@ bor.flushdb
 
 # Classification tests
 
-bor.train "good", "sweet awesome kick-ass cool pretty smart"
-bor.train "bad", "sucks lame boo death bankrupt loser sad"
+bor.learn "good", "sweet awesome kick-ass cool pretty smart"
+bor.learn "bad", "sucks lame boo death bankrupt loser sad"
 
 text = "even though you are sweet and awesome ninja, you still sucks."
 expected = 'good'
