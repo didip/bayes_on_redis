@@ -43,7 +43,7 @@ class BayesOnRedis:
             words_count_per_category = reduce(lambda x, y: x + y, map(float, self.redis.hvals(self.redis_category_key(category))))
 
             if words_count_per_category <= 0:
-                redis.srem(self.__class__.categories_key, category)
+                self.redis.srem(self.__class__.categories_key, category)
 
             scores[category] = 0
 
