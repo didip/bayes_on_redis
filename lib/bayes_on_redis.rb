@@ -3,6 +3,7 @@ require "redis"
 
 class BayesOnRedis
   CATEGORIES_KEY = "BayesOnRedis:categories"
+  attr_reader :redis
 
   def initialize(options)
     @redis = Redis.new(:host => options[:redis_host], :port => options[:redis_port], :db => options[:redis_db])
