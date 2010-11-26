@@ -94,7 +94,7 @@ end
 
 class Stopword
   def initialize
-    @stopwords = File.read(File.join("datasets", "stopwords.txt")).split
+    @stopwords = File.read(File.expand_path(File.join(__FILE__, "..", "..", "datasets", "stopwords.txt"))).split
   end
 
   def to_a
