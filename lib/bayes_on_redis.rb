@@ -3,10 +3,14 @@ require "redis"
 
 class BayesOnRedis
   CATEGORIES_KEY = "BayesOnRedis:categories"
-  attr_reader :redis
+  ONE_OR_TWO_WORDS_RE = /\b\w{1,2}\b/mi
+  NON_ALPHANUMERIC_AND_NON_DOT_RE = /[^\w\.]/mi
+
+  attr_reader :redis, :stopwords
 
   def initialize(options)
     @redis = Redis.new(:host => options[:redis_host], :port => options[:redis_port], :db => options[:redis_db])
+    @stopwords = Stopword.new
   end
 
   def flushdb
@@ -72,8 +76,32 @@ class BayesOnRedis
   def count_occurance(text='')
     raise "input must be instance of String" unless text.is_a?(String)
 
-    text.downcase.split.inject(Hash.new(0)) do |container, word|
+    text_chunks = text.downcase.gsub(ONE_OR_TWO_WORDS_RE, '').gsub(NON_ALPHANUMERIC_AND_NON_DOT_RE, ' ').gsub(@stopwords.to_re, '').split
+    text_chunks.inject(Hash.new(0)) do |container, word|
       container[word] += 1; container
     end
+  end
+
+  def remove_stopwords
+    @redis.smembers(CATEGORIES_KEY).each do |category|
+      @stopwords.to_a.each do |stopword|
+        @redis.hdel(redis_category_key(category), stopword)
+      end
+    end
+  end
+end
+
+
+class Stopword
+  def initialize
+    @stopwords = File.read(File.join("datasets", "stopwords.txt")).split
+  end
+
+  def to_a
+    @stopwords
+  end
+
+  def to_re
+    @to_re ||= /\b(#{@stopwords.join('|')})\b/mi
   end
 end
