@@ -22,7 +22,7 @@ setup(
         # If any package contains *.txt or *.rst files, include them:
         '': ['*.txt', '*.rst'],
     },
-    long_description=read('../README.markdown'),
+    long_description=read('README.markdown'),
     classifiers=[
         "Development Status :: 3 - Alpha",
     ],

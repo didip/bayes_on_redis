@@ -1,6 +1,6 @@
 Gem::Specification.new do |gem|
   gem.name    = 'bayes_on_redis'
-  gem.version = "0.2.0"
+  gem.version = "0.2.1"
   gem.date    = Date.today.to_s
 
   gem.summary = "Bayesian filter on top of Redis"
@@ -14,7 +14,7 @@ Gem::Specification.new do |gem|
   gem.has_rdoc = false
 
   gem.files = [
-    File.join("..", "README.markdown"),
+    "README.markdown",
     File.join("lib", "bayes_on_redis.rb"),
     File.join("datasets", "stopwords.txt")
   ]
