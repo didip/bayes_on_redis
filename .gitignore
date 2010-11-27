@@ -1,1 +1,2 @@
-lib/*.pyc
+python/bayes_on_redis/*.pyc
+python/build
