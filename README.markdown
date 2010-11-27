@@ -1,10 +1,14 @@
-# bayes_on_redis
+# What is BayesOnRedis?
 
 Bayesian classifier on top of Redis
 
 ## Why on Redis?
 
-Redis is perfect for building fast bayesian filter.
+Because of its persistent but also in-memory data structures, Redis is perfect for weeks of machine learning.
+
+## How to install?
+
+    gem install bayes_on_redis
 
 ## Getting started
 
@@ -16,8 +20,8 @@ Redis is perfect for building fast bayesian filter.
     bor.train "bad", "sucks lame boo death bankrupt loser sad"
 
     # Then ask it to classify text.
-    bor.classify_for_human("awesome kick-ass ninja can still be lame.")
+    bor.classify("awesome kick-ass ninja can still be lame.")
 
 ## Contributing
 
-[Fork the project](http://github.com/didip/bayes_on_redis) and send pull requests.
+[Fork http://github.com/didip/bayes_on_redis](http://github.com/didip/bayes_on_redis) and send pull requests.

@@ -1,11 +1,14 @@
-import operator, math
+import operator, math, os.path, re
 from redis import Redis
 
 class BayesOnRedis:
     categories_key = "BayesOnRedis:categories"
+    one_or_two_words_re = re.compile(r"\b[^\s]{1,2}\b", re.IGNORECASE)
+    non_alphanumeric_and_non_dot_re = re.compile(r"[^\w\.]", re.IGNORECASE)
 
     def __init__(self, **kwargs):
         self.redis = Redis(host=kwargs['redis_host'], port=int(kwargs['redis_port']), db=int(kwargs['redis_db']))
+        self.stopwords = Stopword()
 
     def flushdb(self):
         self.redis.flushdb()
@@ -36,7 +39,7 @@ class BayesOnRedis:
         self.untrain(category, text)
 
 
-    def classify(self, text):
+    def score(self, text):
         scores = {}
 
         for category in self.redis.smembers(self.__class__.categories_key):
@@ -59,8 +62,8 @@ class BayesOnRedis:
         return scores
 
 
-    def classify_for_human(self, text):
-        return sorted(self.classify(text).iteritems(), key=operator.itemgetter(1))[-1][0]
+    def classify(self, text):
+        return sorted(self.score(text).iteritems(), key=operator.itemgetter(1))[-1][0]
 
 
     def redis_category_key(self, category):
@@ -72,8 +75,28 @@ class BayesOnRedis:
         if not isinstance(text, basestring):
             raise Exception("input must be instance of String")
 
+        separated_by_non_alphanumerics = self.__class__.non_alphanumeric_and_non_dot_re.sub(' ', text.lower())
+        without_one_or_two_words = self.__class__.one_or_two_words_re.sub('', separated_by_non_alphanumerics)
+        without_dots = without_one_or_two_words.replace(".", "")
+        text_chunks = self.stopwords.to_re().sub('', without_dots).split()
+
         frequencies = {}
-        for word in text.lower().split():
+        for word in text_chunks:
             frequencies[word] = (frequencies[word] if frequencies.has_key(word) else 0) + 1
 
         return frequencies
+
+
+class Stopword:
+    def __init__(self):
+        self.stopwords = open(os.path.abspath(os.path.join(__file__, "..", "..", "datasets", "stopwords.txt")), 'r').read()
+        self.stopwords_re = None
+
+    def to_list(self):
+        return self.stopwords.split()
+
+    def to_re(self):
+        if not self.stopwords_re:
+            self.stopwords_re = re.compile(r"\b(%s)\b" % '|'.join(self.to_list()), re.IGNORECASE)
+        return self.stopwords_re
+

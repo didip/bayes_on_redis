@@ -1,6 +1,6 @@
 Gem::Specification.new do |gem|
   gem.name    = 'bayes_on_redis'
-  gem.version = "0.1.7"
+  gem.version = "0.1.9"
   gem.date    = Date.today.to_s
 
   gem.summary = "Bayesian filter on top of Redis"

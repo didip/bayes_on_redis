@@ -43,7 +43,7 @@ class BayesOnRedis
   end
   alias_method :unlearn, :untrain
 
-  def classify(text)
+  def score(text)
     scores = {}
 
     @redis.smembers(CATEGORIES_KEY).each do |category|
@@ -63,8 +63,8 @@ class BayesOnRedis
     return scores
   end
 
-  def classify_for_human(text)
-    (classify(text).sort_by { |score| -score[1] })[0][0]    # [0][0] -> first score, get the key
+  def classify(text)
+    (score(text).sort_by { |score| -score[1] })[0][0]    # [0][0] -> first score, get the key
   end
 
   private
@@ -76,7 +76,7 @@ class BayesOnRedis
   def count_occurance(text='')
     raise "input must be instance of String" unless text.is_a?(String)
 
-    text_chunks = text.downcase.gsub(ONE_OR_TWO_WORDS_RE, '').gsub(NON_ALPHANUMERIC_AND_NON_DOT_RE, ' ').gsub(@stopwords.to_re, '').split
+    text_chunks = text.downcase.gsub(ONE_OR_TWO_WORDS_RE, '').gsub(NON_ALPHANUMERIC_AND_NON_DOT_RE, ' ').gsub(@stopwords.to_re, '').gsub(/\./, '').split
     text_chunks.inject(Hash.new(0)) do |container, word|
       container[word] += 1; container
     end
