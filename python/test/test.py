@@ -1,6 +1,6 @@
 #!/usr/bin/python
 import sys, os.path
-sys.path.append(os.path.abspath(os.path.join(__file__, '..', '..', 'lib')))
+sys.path.append(os.path.abspath(os.path.join(__file__, '..', '..', 'bayes_on_redis')))
 
 from bayes_on_redis import BayesOnRedis
 
@@ -44,8 +44,7 @@ print "Expected: %s --- Result: %s" % (expected, bor.classify(text))
 
 # -----------------------
 # Stopwords tests
-print "Expected: Stopwords length should be > 0 --- Result: %s" % bor.stopwords.to_list()
-print "Expected: Stopwords length should be > 0 --- Result: %s" % bor.stopwords.to_re()
+print "Expected: Stopwords length should be > 0 --- Result: %s" % len(bor.stopwords.to_list())
 
 # -----------------------
 # occurance tests
