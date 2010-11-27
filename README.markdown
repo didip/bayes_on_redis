@@ -4,7 +4,16 @@ Bayesian classifier on top of Redis
 
 ## Why on Redis?
 
-Because of its persistent but also in-memory data structures, Redis is perfect for weeks of machine learning.
+[Redis](http://code.google.com/p/redis) is a persistent in-memory database with supports for various data structures such as lists, sets, and ordered sets.
+All this data types can be manipulated with atomic operations to push/pop elements, add/remove elements, perform server side union, intersection, difference between sets, and so forth.
+
+Because of Redis properties:
+
+ * It is extremely easy to implement simple algorithm such as bayesian filter.
+
+ * The persistence of Redis means that the Bayesian implementation can be used in real production environment.
+
+ * Even though I don't particularly care about performance at the moment. Redis benchmarks give me confidence that the implementation can scale to relatively large training data.
 
 ## How to install?
 
@@ -21,6 +30,10 @@ Because of its persistent but also in-memory data structures, Redis is perfect f
 
     # Then ask it to classify text.
     bor.classify("awesome kick-ass ninja can still be lame.")
+
+## for Pythonistas
+
+BayesOnRedis is also available in Python. With the same API.
 
 ## Contributing
 
