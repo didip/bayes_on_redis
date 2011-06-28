@@ -37,7 +37,7 @@ Because of Redis properties:
 
 BayesOnRedis is also available in Python. With the same API.
 
-    pip install bayes_on_redis
+    easy_install bayes_on_redis
 
 
 
