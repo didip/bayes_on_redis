@@ -15,7 +15,7 @@ Because of Redis properties:
 
  * Even though I don't particularly care about performance at the moment. Redis benchmarks give me confidence that the implementation can scale to relatively large training data.
 
-## How to install?
+## How to install? (Ruby version)
 
     gem install bayes_on_redis
 
