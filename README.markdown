@@ -24,7 +24,7 @@ Because of Redis properties:
     # Create instance of BayesOnRedis and pass your Redis information.
     # Of course, use real sentences for much better accuracy.
     # Unless if you want to train spam related things.
-    bor = BayesOnRedis.new(:redis_host => '127.0.0.1', :redis_port => 6379, :redis_db => 5)
+    bor = BayesOnRedis.new(:redis_host => '127.0.0.1', :redis_port => 6379, :redis_db => 0)
 
     # Teach it
     bor.train "good", "sweet awesome kick-ass cool pretty smart"
@@ -36,6 +36,10 @@ Because of Redis properties:
 ## for Pythonistas
 
 BayesOnRedis is also available in Python. With the same API.
+
+    pip install bayes_on_redis
+
+
 
 ## Contributing
 
