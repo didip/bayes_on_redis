@@ -21,7 +21,7 @@ Because of Redis properties:
 
 ## Getting started
 
-    # Require BayesOnRedis and Rubygems
+    # Require BayesOnRedis and RubyGems
     require "rubygems"
     require "bayes_on_redis"
     
