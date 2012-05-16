@@ -4,16 +4,16 @@ Bayesian classifier on top of Redis
 
 ## Why on Redis?
 
-[Redis](http://code.google.com/p/redis) is a persistent in-memory database with supports for various data structures such as lists, sets, and ordered sets.
-All this data types can be manipulated with atomic operations to push/pop elements, add/remove elements, perform server side union, intersection, difference between sets, and so forth.
+[Redis](http://redis.io/) is a persistent, in-memory, key-value store with support for various data structures such as lists, sets, and ordered sets.
+All these data types can be manipulated with atomic operations to push/pop elements, add/remove elements, perform server-side union, intersection, difference between sets, and so forth.
 
-Because of Redis properties:
+Because of Redis' properties:
 
  * It is extremely easy to implement simple algorithm such as bayesian filter.
 
  * The persistence of Redis means that the Bayesian implementation can be used in real production environment.
 
- * Even though I don't particularly care about performance at the moment. Redis benchmarks give me confidence that the implementation can scale to relatively large training data.
+ * Even though I don't particularly care about performance at the moment, Redis benchmarks give me confidence that the implementation can scale to relatively large training data.
 
 ## How to install? (Ruby version)
 
