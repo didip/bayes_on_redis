@@ -21,6 +21,10 @@ Because of Redis properties:
 
 ## Getting started
 
+    # Require BayesOnRedis and RubyGems
+    require "rubygems"
+    require "bayes_on_redis"
+    
     # Create instance of BayesOnRedis and pass your Redis information.
     # Of course, use real sentences for much better accuracy.
     # Unless if you want to train spam related things.
